@@ -9,12 +9,26 @@ var union = new cvg.expressions.union({operands : [box,sphere]});
 
 var difference = new cvg.expressions.difference({operands : [box,sphere]});
 
-var scale = new cvg.expressions.scale({operands : [difference]});
+var scale = new cvg.expressions.scale({
+  operands : [difference],
+  factors : [.3, .3, .3]
+});
 
+var array = new cvg.expressions.array({
+  operands : [scale],
+  repeats : [2, 2, 1],
+  steps : [.1, .1, .1],
+});
+
+
+var material = array;
 
 console.log('rasterizing...');
-var smallGrid = new cvg.rasterize.grid();
-var raster = smallGrid.rasterize(difference);
+var smallGrid = new cvg.rasterize.Grid({
+  dimensions : { columns : 200, rows : 200, slices : 200 },
+  //dimensions : { columns : 2, rows : 2, slices : 2 },
+  });
+var raster = smallGrid.rasterize(material);
 
 console.log('saving...');
 cvg.nrrd.write({grid : smallGrid, raster : raster});
