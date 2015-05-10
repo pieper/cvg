@@ -17,11 +17,15 @@ var scale = new cvg.expressions.scale({
 var array = new cvg.expressions.array({
   operands : [scale],
   repeats : [2, 2, 1],
-  steps : [.1, .1, .1],
+  steps : [.2, .2, .2],
 });
 
+var rotate = new cvg.expressions.rotate({
+  operands : [array],
+  angle : 30
+});
 
-var material = array;
+var material = rotate;
 
 console.log('rasterizing...');
 var smallGrid = new cvg.rasterize.Grid({
