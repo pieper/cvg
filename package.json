@@ -1,0 +1,30 @@
+{
+  "name": "cvg",
+  "version": "1.0.0",
+  "description": "constructive volume geometry tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pieper/cvg"
+  },
+  "keywords": [
+    "constructive",
+    "volume",
+    "geometry",
+    "cvg",
+    "modeling"
+  ],
+  "author": "Steve Pieper",
+  "license": "3D Slicer Contribution and Software License Agreement Version 1.0 (December 20, 2005)",
+  "bugs": {
+    "url": "https://github.com/pieper/cvg/issues"
+  },
+  "homepage": "https://github.com/pieper/cvg",
+  "dependencies": {
+    "three": "^0.71.0",
+    "underscore": "^1.8.3"
+  }
+}
