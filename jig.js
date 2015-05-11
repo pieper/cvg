@@ -1,5 +1,7 @@
 var cvg = require('./');
 
+console.log(cvg.octants.corners(0));
+
 console.log('constructing...');
 
 var box = new cvg.expressions.box();
