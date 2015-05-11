@@ -27,7 +27,15 @@ var rotate = new cvg.expressions.rotate({
   angle : 30
 });
 
-var material = rotate;
+var cylinder = new cvg.expressions.cylinder({
+  radius : .2,
+});
+
+var thing = new cvg.expressions.union({
+  operands : [cylinder, rotate]
+});
+
+var material = thing;
 
 console.log('rasterizing...');
 var smallGrid = new cvg.rasterize.Grid({
