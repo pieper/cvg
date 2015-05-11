@@ -25,6 +25,7 @@
   "homepage": "https://github.com/pieper/cvg",
   "dependencies": {
     "three": "^0.71.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "webworker-threads": "^0.5.6"
   }
 }
