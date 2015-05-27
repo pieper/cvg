@@ -14,4 +14,5 @@ module.exports.expressions = require('./lib/expressions');
 module.exports.octants = require('./lib/octants');
 module.exports.rasterize = require('./lib/rasterize');
 module.exports.nrrd = require('./lib/nrrd');
+module.exports.mesh = require('./lib/mesh');
 
