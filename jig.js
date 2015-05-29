@@ -95,7 +95,7 @@ function baseExpression() {
 var gridOptions = {
       origins : { columns : -5, rows : -5, slices : -5 },
       extents : { columns : 35, rows : 45, slices : 95 },
-      spacings : { columns : 0.5, rows : 0.5, slices : 0.5 },
+      spacings : { columns : 0.25, rows : 0.25, slices : 0.25 },
       };
 
 var holder = holderExpression();
