@@ -4,12 +4,13 @@ var OrbitControls = require('three-orbit-controls')(THREE);
 
 console.log('constructing...');
 
-var clone = function(o) {return JSON.parse(JSON.stringify(o))};
+var clone = function(o) {return JSON.parse(JSON.stringify(o));};
 
 // // // Global Parameters
 
 console.log('starting');
 
+var volumePath;
 var baseSize = [20, 20, 10];
 
 var hoseWallThickness = 1.5;
@@ -94,7 +95,7 @@ function baseExpression() {
 var gridOptions = {
       origins : { columns : -10, rows : -10, slices : -10 },
       extents : { columns : 200, rows : 100, slices : 140 },
-      spacings : { columns : .25, rows : .25, slices : .25 },
+      spacings : { columns : 0.25, rows : 0.25, slices : 0.25 },
       };
 
 var holder = holderExpression();
