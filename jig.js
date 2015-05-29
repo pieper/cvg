@@ -93,24 +93,23 @@ function baseExpression() {
 //
 
 var gridOptions = {
-      origins : { columns : -10, rows : -10, slices : -10 },
-      extents : { columns : 200, rows : 100, slices : 140 },
-      spacings : { columns : 0.25, rows : 0.25, slices : 0.25 },
+      origins : { columns : -5, rows : -5, slices : -5 },
+      extents : { columns : 35, rows : 45, slices : 95 },
+      spacings : { columns : 0.5, rows : 0.5, slices : 0.5 },
       };
 
 var holder = holderExpression();
 
 var children = {};
 
-
-console.log('rasterizing');
 var grid = new cvg.rasterize.Grid(gridOptions);
-var raster = grid.rasterize(holder);
 
 if (typeof window == 'undefined') {
   // CLI mode
   console.log('cli mode');
   console.log('rasterizing...');
+  // rasterizing is specific to CLI mode because browser/MC (so far) just uses
+  // sampling, not full raster
   var raster = grid.rasterize(holder);
   console.log('saving...');
   cvg.nrrd.write({
@@ -123,13 +122,13 @@ if (typeof window == 'undefined') {
   // browser window
   console.log('browser mode.');
   console.log('sampling...');
-  // project (high-dim) value to desired mesh isolevel
+  var sampleData = grid.evaluateSamples(holder, true);
+  console.log('mc...');
+  // this is to project (high-dim) value to desired mesh isolevel
   var valueLevel = function(value) {
     // simple relation as long as not multidimensional values or tone.
     return -value;
   };
-  var sampleData = grid.evaluateSamples(holder, true);
-  console.log('mc...');
   var mesh = cvg.mesh.mc({grid: grid, samples:sampleData.samples,
     vertices: sampleData.vertices, valueLevel: valueLevel});
   console.log('rendering');
@@ -143,6 +142,14 @@ if (typeof window == 'undefined') {
     var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
     camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
     scene.add(camera);
+
+    // add grid bounding box to scene
+    grid.getBoundingLines().forEach(function(l) {
+      var lineGeometry = new THREE.Geometry();
+      lineGeometry.vertices.push(l[0], l[1]);
+      scene.add(new THREE.Line(lineGeometry,
+        new THREE.LineBasicMaterial({color: 0x0, lineWidth: 10})));
+    });
 
     var gsize = 1000;
     var gstep = 10;//grid._spacings.x;
