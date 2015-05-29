@@ -3,8 +3,9 @@
 // general vars
 var jsmain = './jig.js';
 var jsfiles = [jsmain, 'lib/**/*.js'];
+var jstests = './test/**/*.js';
 var jsbundle = './jig-bundle.js';
-
+var lintfiles = [].concat(jsfiles, jstests);
 
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
@@ -16,6 +17,7 @@ var gutil = require('gulp-util');
 // var sourcemaps = require('gulp-sourcemaps');
 // var assign = require('lodash.assign');
 var browserSync = require('browser-sync').create();
+var mocha = require('gulp-mocha');
 
 // START JS BUILD
 
@@ -47,12 +49,13 @@ function scripts(watch) {
       .on('error', gutil.log.bind(gutil, 'Browserify Error'))
       .pipe(source(jsbundle))
       .pipe(gulp.dest('.'))
-      .pipe(browserSync.reload({stream: true, once: true}));
+      .pipe(browserSync.reload({stream: true, once: true}))
   };
 
   bundler.on('update', function() {
     gutil.log.call(gutil, 'Re-bundling with watchify');
     rebundle();
+    gulp.start('mocha');
   });
   return rebundle();
 }
@@ -81,15 +84,23 @@ gulp.task('browser-sync', function() {
 
 // linter
 gulp.task('lint', function() {
-  return gulp.src(jsfiles)
+  return gulp.src(lintfiles)
     .pipe(jshint({browserify: true}))
     .pipe(jshint.reporter('default'));
 });
 
 
 gulp.task('watch', function() {
-  gulp.watch(jsfiles, ['lint']);
+  gulp.watch(lintfiles, ['lint']);
   gulp.start(['watchScripts']);
+});
+
+// tests
+gulp.task('mocha', function() {
+  gutil.log('Running tests. For verbose output, just type "mocha"');
+  return gulp.src(jstests, {read: false})
+    // gulp-mocha needs filepaths so you can't have any plugins before it 
+    .pipe(mocha({reporter: 'nyan'}));
 });
 
 // defaults
