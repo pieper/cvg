@@ -31,7 +31,7 @@ function holderExpression() {
 
   var arm = armExpression();
 
-  return (new cvg.expressions.union({
+  return (cvg.expressions.union({
     operands : [base, arm]
   }));
 
@@ -39,50 +39,50 @@ function holderExpression() {
 
 function armExpression() {
 
-  var cyl = new cvg.expressions.cylinder ({
+  var cyl = cvg.expressions.cylinder ({
     length : armSize[0],
     radius : hoseInnerRadius
   });
 
-  var rotCyl = new cvg.expressions.rotate ({
+  var rotCyl = cvg.expressions.rotate ({
     axis : [1, 0, 0],
     angle : THREE.Math.degToRad(90),
     operands : [ cyl ]
   });
 
-  var cutout = new cvg.expressions.translate({
+  var cutout = cvg.expressions.translate({
     offsets : armHoleOffset,
     operands : [ rotCyl ]
   });
 
-  var armBar = new cvg.expressions.box ({
+  var armBar = cvg.expressions.box ({
     dimensions : armSize,
   });
 
-  var arm = new cvg.expressions.difference({
+  var arm = cvg.expressions.difference({
     operands : [armBar, cutout]
   });
 
-  return (new cvg.expressions.translate({
+  return (cvg.expressions.translate({
     offsets : armOffset,
     operands : [ arm ]
   }));
 }
 
 function baseExpression() {
-  var base = new cvg.expressions.box ({
+  var base = cvg.expressions.box ({
       dimensions : baseSize
   });
 
-  var cutout = new cvg.expressions.translate ({
+  var cutout = cvg.expressions.translate ({
     offsets : [baseSize[0]/2, baseSize[1]/2, 0],
-    operands : [new cvg.expressions.cylinder ({
+    operands : [cvg.expressions.cylinder ({
       length : 2*baseSize[2],
       radius : hoseInnerRadius
     })]
   });
 
-  return (new cvg.expressions.difference({
+  return (cvg.expressions.difference({
     operands : [base, cutout]
   }));
 }
