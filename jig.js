@@ -101,14 +101,12 @@ var holder = holderExpression();
 var children = {};
 
 var grid = new cvg.rasterize.Grid(gridOptions);
+console.log('rasterizing...');
+var raster = grid.rasterize(holder);
 
 if (typeof window == 'undefined') {
   // CLI mode
-  console.log('cli mode');
-  console.log('rasterizing...');
-  // rasterizing is specific to CLI mode because browser/MC (so far) just uses
-  // sampling, not full raster
-  var raster = grid.rasterize(holder);
+  console.log('(cli mode)');
   console.log('saving...');
   cvg.nrrd.write({
     grid : grid,
@@ -117,18 +115,16 @@ if (typeof window == 'undefined') {
   });
 
 } else {
-  // browser window
-  console.log('browser mode.');
-  console.log('sampling...');
-  var sampleData = grid.evaluateSamples(holder, true);
+  // browser mode
+  console.log('(browser mode)');
   console.log('marchingCubes...');
   // this is to project (high-dim) value to desired mesh isolevel
   var valueLevel = function(value) {
     // simple relation as long as not multidimensional values or tone.
     return -value;
   };
-  var mesh = cvg.mesh.marchingCubes({grid: grid, samples:sampleData.samples,
-    vertices: sampleData.vertices, valueLevel: valueLevel});
+  var mesh = cvg.mesh.marchingCubes({grid: grid, raster: raster,
+                                     valueLevel: valueLevel});
   console.log('rendering');
 
   // grid bounding lines
