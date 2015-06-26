@@ -1,6 +1,5 @@
 var cvg = require('./');
 var THREE = require('three');
-var OrbitControls = require('three-orbit-controls')(THREE);
 
 console.log('constructing...');
 
@@ -102,14 +101,12 @@ var holder = holderExpression();
 var children = {};
 
 var grid = new cvg.rasterize.Grid(gridOptions);
+console.log('rasterizing...');
+var raster = grid.rasterize(holder);
 
 if (typeof window == 'undefined') {
   // CLI mode
-  console.log('cli mode');
-  console.log('rasterizing...');
-  // rasterizing is specific to CLI mode because browser/MC (so far) just uses
-  // sampling, not full raster
-  var raster = grid.rasterize(holder);
+  console.log('(cli mode)');
   console.log('saving...');
   cvg.nrrd.write({
     grid : grid,
@@ -118,72 +115,26 @@ if (typeof window == 'undefined') {
   });
 
 } else {
-  // browser window
-  console.log('browser mode.');
-  console.log('sampling...');
-  var sampleData = grid.evaluateSamples(holder, true);
+  // browser mode
+  console.log('(browser mode)');
   console.log('marchingCubes...');
   // this is to project (high-dim) value to desired mesh isolevel
   var valueLevel = function(value) {
     // simple relation as long as not multidimensional values or tone.
     return -value;
   };
-  var mesh = cvg.mesh.marchingCubes({grid: grid, samples:sampleData.samples,
-    vertices: sampleData.vertices, valueLevel: valueLevel});
+  var mesh = cvg.mesh.marchingCubes({grid: grid, raster: raster,
+                                     valueLevel: valueLevel});
   console.log('rendering');
-  var container, scene, camera, renderer, controls, stats;
 
-  var init = function() {
-    // scene
-    scene = new THREE.Scene();
-    // camera
-    var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
-    var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
-    camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
-    scene.add(camera);
+  // grid bounding lines
+  var boundingLines = grid.getBoundingLines().map(function(l) {
+    var lineGeometry = new THREE.Geometry();
+    lineGeometry.vertices.push(l[0], l[1]);
+    return new THREE.Line(lineGeometry,
+      new THREE.LineBasicMaterial({color: 0x0, lineWidth: 10}));
+  });
 
-    // add grid bounding box to scene
-    grid.getBoundingLines().forEach(function(l) {
-      var lineGeometry = new THREE.Geometry();
-      lineGeometry.vertices.push(l[0], l[1]);
-      scene.add(new THREE.Line(lineGeometry,
-        new THREE.LineBasicMaterial({color: 0x0, lineWidth: 10})));
-    });
-
-    var gridSize = 200; // 400 x 400 mm
-    var gridStep = 10; // centimeters
-    var gridHelper = new THREE.GridHelper( gridSize, gridStep );
-    scene.add( gridHelper );
-    scene.add( new THREE.AxisHelper(gridSize) );
-
-    camera.position.set(100,100,60);
-    camera.lookAt(scene.position);
-    // renderer
-    renderer = new THREE.WebGLRenderer( {antialias:true} );
-    renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-    var bgColor = new THREE.Color();
-    bgColor.setRGB(0.9, 0.9, 0.9);
-    renderer.setClearColor(bgColor);
-    // controls
-    controls = new OrbitControls(camera, renderer.domElement);
-    container = document.getElementById( 'render' );
-    container.appendChild( renderer.domElement );
-    // light
-    var lightPositions = [ [2000,2000,2000], [-2000,2000,-2000] ];
-    lightPositions.forEach(function(position) {
-      var light = new THREE.PointLight(0xbbb);
-      light.position.fromArray(position);
-      scene.add(light);
-    });
-  };
-  var animate = function() {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-    controls.update();
-  };
-  var render = function() {
-  };
-  init();
-  scene.add(mesh);
-  animate();
+  var renderer = new cvg.renderer.Renderer(boundingLines.concat(mesh));
+  renderer.animate();
 }
