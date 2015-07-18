@@ -91,22 +91,33 @@ function baseExpression() {
 //
 
 var gridOptions = {
-      origins : { columns : -10, rows : -10, slices : -10 },
-      extents : { columns : 20, rows : 20, slices : 20 },
+      origins : { columns : -6, rows : -6, slices : -6 },
+      extents : { columns : 12, rows : 12, slices : 12 },
       spacings : { columns : 0.125, rows : 0.125, slices : 0.125 },
       };
 
 
 // candidates for showing
 var holder = holderExpression();
-var loxodrome = cvg.expressions.loxodrome({tube: 0.5, slope:0.3});
+var loxodrome = cvg.expressions.loxodrome({radius: 5, tube: 0.3, slope:1});
+var union_operands = [];
+var num_loxs = 8;
+for (var i = 0; i < num_loxs; i++) {
+  union_operands.push(cvg.expressions.rotate ({
+    axis : [0, 0, 1],
+    angle : 2*Math.PI/num_loxs*i,
+    operands : [ loxodrome ]
+  }));
+}
+var loxball = cvg.expressions.union({operands: union_operands});
+
 
 var children = {};
 
 var grid = new cvg.rasterize.Grid(gridOptions);
 console.log('rasterizing...');
 // var raster = grid.rasterize(holder);
-var raster = grid.rasterize(loxodrome);
+var raster = grid.rasterize(loxball);
 
 if (typeof window == 'undefined') {
   // CLI mode
