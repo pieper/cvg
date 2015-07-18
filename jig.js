@@ -91,18 +91,22 @@ function baseExpression() {
 //
 
 var gridOptions = {
-      origins : { columns : -5, rows : -5, slices : -5 },
-      extents : { columns : 35, rows : 45, slices : 95 },
-      spacings : { columns : 1.0, rows : 1.0, slices : 1.0 },
+      origins : { columns : -10, rows : -10, slices : -10 },
+      extents : { columns : 20, rows : 20, slices : 20 },
+      spacings : { columns : 0.125, rows : 0.125, slices : 0.125 },
       };
 
+
+// candidates for showing
 var holder = holderExpression();
+var loxodrome = cvg.expressions.loxodrome({tube: 0.5, slope:0.3});
 
 var children = {};
 
 var grid = new cvg.rasterize.Grid(gridOptions);
 console.log('rasterizing...');
-var raster = grid.rasterize(holder);
+// var raster = grid.rasterize(holder);
+var raster = grid.rasterize(loxodrome);
 
 if (typeof window == 'undefined') {
   // CLI mode
