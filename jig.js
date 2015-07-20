@@ -8,6 +8,8 @@ var clone = function(o) {return JSON.parse(JSON.stringify(o));};
 // // // Global Parameters
 
 console.log('starting');
+// for benchmarks
+var startTime = Date.now();
 
 var volumePath;
 var baseSize = [20, 20, 10];
@@ -118,6 +120,9 @@ var grid = new cvg.rasterize.Grid(gridOptions);
 console.log('rasterizing...');
 // var raster = grid.rasterize(holder);
 var raster = grid.rasterize(loxball);
+var rasterTime = Date.now() - startTime;
+startTime = Date.now();
+console.log('rasterized in ' + rasterTime + ' ms.');
 
 if (typeof window == 'undefined') {
   // CLI mode
@@ -140,6 +145,8 @@ if (typeof window == 'undefined') {
   };
   var mesh = cvg.mesh.marchingCubes({grid: grid, raster: raster,
                                      valueLevel: valueLevel});
+  var meshTime = Date.now() - startTime;
+  console.log('meshed in ' + meshTime + ' ms.');
   console.log('rendering');
 
   // grid bounding lines
@@ -150,6 +157,9 @@ if (typeof window == 'undefined') {
       new THREE.LineBasicMaterial({color: 0x0, lineWidth: 10}));
   });
 
-  var renderer = new cvg.renderer.Renderer(boundingLines.concat(mesh));
+  var renderer = new cvg.renderer.Renderer(boundingLines.concat(mesh), {
+    rasterTime: rasterTime,
+    meshTime: meshTime
+  });
   renderer.animate();
 }
