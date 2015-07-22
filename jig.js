@@ -93,33 +93,38 @@ function baseExpression() {
 //
 
 var gridOptions = {
-      origins : { columns : -6, rows : -6, slices : -6 },
-      extents : { columns : 12, rows : 12, slices : 12 },
+      origins : { columns : -6, rows : -6, slices : -0.5 },
+      extents : { columns : 12, rows : 12, slices : 3 },
       spacings : { columns : 0.125, rows : 0.125, slices : 0.125 },
-      };
+};
 
 
-// candidates for showing
+// examples for showing
+// 1. a holder
 var holder = holderExpression();
+// 2. a collection of loxodromes
 var loxodrome = cvg.expressions.loxodrome({radius: 5, tube: 0.3, slope:1});
-var union_operands = [];
-var num_loxs = 8;
+var num_loxs = 8, union_operands = [];
 for (var i = 0; i < num_loxs; i++) {
   union_operands.push(cvg.expressions.rotate ({
-    axis : [0, 0, 1],
-    angle : 2*Math.PI/num_loxs*i,
-    operands : [ loxodrome ]
+    axis : [0, 0, 1], angle : 2*Math.PI/num_loxs*i, operands : [ loxodrome ]
   }));
 }
 var loxball = cvg.expressions.union({operands: union_operands});
-
-
-var children = {};
+// 3. some cut/extrude op
+// var loxball = cvg.expressions.box({dimensions:[5, 5, 1], origin:[-2.5, -2.5, -0.01]});
+var octahedron = cvg.expressions.octahedron({radius: 5});
+// oblique cut
+var cut = cvg.expressions.cut({operands: [octahedron],
+  normal: [1, 1, 1], axisvector: [1, 0, 0]});
+var extrude = cvg.expressions.extrude({operands: [cut], length: 2});
 
 var grid = new cvg.rasterize.Grid(gridOptions);
 console.log('rasterizing...');
 // var raster = grid.rasterize(holder);
-var raster = grid.rasterize(loxball);
+// var raster = grid.rasterize(loxball);
+var raster = grid.rasterize(extrude);
+
 var rasterTime = Date.now() - startTime;
 startTime = Date.now();
 console.log('rasterized in ' + rasterTime + ' ms.');
