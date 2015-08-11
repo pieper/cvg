@@ -93,8 +93,8 @@ function baseExpression() {
 //
 
 var gridOptions = {
-      origins : { columns : -6, rows : -6, slices : -0.5 },
-      extents : { columns : 12, rows : 12, slices : 3 },
+      origins : { columns : -6, rows : -6, slices : -6 },
+      extents : { columns : 12, rows : 12, slices : 12 },
       spacings : { columns : 0.125, rows : 0.125, slices : 0.125 },
 };
 
@@ -119,11 +119,18 @@ var cut = cvg.expressions.cut({operands: [octahedron],
   normal: [1, 1, 1], axisvector: [1, 0, 0]});
 var extrude = cvg.expressions.extrude({operands: [cut], length: 2});
 
+var threeGeometry = cvg.expressions.fromThreeGeometry({
+  geometry: new THREE.IcosahedronGeometry(5, 0)
+});
+
+var threeGeometry = cvg.expressions.torusknot();
+
 var grid = new cvg.rasterize.Grid(gridOptions);
 console.log('rasterizing...');
 // var raster = grid.rasterize(holder);
 // var raster = grid.rasterize(loxball);
-var raster = grid.rasterize(extrude);
+// var raster = grid.rasterize(extrude);
+var raster = grid.rasterize(threeGeometry);
 
 var rasterTime = Date.now() - startTime;
 startTime = Date.now();
