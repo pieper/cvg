@@ -123,8 +123,6 @@ var threeGeometry = cvg.expressions.fromThreeGeometry({
   geometry: new THREE.IcosahedronGeometry(5, 0)
 });
 
-var threeGeometry = cvg.expressions.torusknot();
-
 var grid = new cvg.rasterize.Grid(gridOptions);
 console.log('rasterizing...');
 // var raster = grid.rasterize(holder);
