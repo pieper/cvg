@@ -175,7 +175,7 @@ if (typeof window == 'undefined') {
   renderer.animate();
 }
 
-},{"./":"/Users/stefan/Documents/work/code/cvg/index.js","three":"/Users/stefan/Documents/work/code/cvg/node_modules/three/three.js"}],"/Users/stefan/Documents/work/code/cvg/index.js":[function(require,module,exports){
+},{"./":"/Users/pieper/slicer4/latest/cvg/index.js","three":"/Users/pieper/slicer4/latest/cvg/node_modules/three/three.js"}],"/Users/pieper/slicer4/latest/cvg/index.js":[function(require,module,exports){
 //
 // Copyright 2015 Isomics, Inc.
 // Author: Steve Pieper
@@ -196,7 +196,7 @@ module.exports.mesh = require('./lib/mesh');
 module.exports.renderer = require('./lib/renderer');
 
 
-},{"./lib/expressions":"/Users/stefan/Documents/work/code/cvg/lib/expressions.js","./lib/mesh":"/Users/stefan/Documents/work/code/cvg/lib/mesh.js","./lib/nrrd":"/Users/stefan/Documents/work/code/cvg/lib/nrrd.js","./lib/octants":"/Users/stefan/Documents/work/code/cvg/lib/octants.js","./lib/rasterize":"/Users/stefan/Documents/work/code/cvg/lib/rasterize.js","./lib/renderer":"/Users/stefan/Documents/work/code/cvg/lib/renderer.js"}],"/Users/stefan/Documents/work/code/cvg/lib/addcontainspoint.js":[function(require,module,exports){
+},{"./lib/expressions":"/Users/pieper/slicer4/latest/cvg/lib/expressions.js","./lib/mesh":"/Users/pieper/slicer4/latest/cvg/lib/mesh.js","./lib/nrrd":"/Users/pieper/slicer4/latest/cvg/lib/nrrd.js","./lib/octants":"/Users/pieper/slicer4/latest/cvg/lib/octants.js","./lib/rasterize":"/Users/pieper/slicer4/latest/cvg/lib/rasterize.js","./lib/renderer":"/Users/pieper/slicer4/latest/cvg/lib/renderer.js"}],"/Users/pieper/slicer4/latest/cvg/lib/addcontainspoint.js":[function(require,module,exports){
 var THREE = require("three");
 /*
  * Ignore z coordinates and calculate the 2d bounding box of
@@ -300,7 +300,7 @@ module.exports = function(geometry) {
   };
 };
 
-},{"three":"/Users/stefan/Documents/work/code/cvg/node_modules/three/three.js"}],"/Users/stefan/Documents/work/code/cvg/lib/expressions.js":[function(require,module,exports){
+},{"three":"/Users/pieper/slicer4/latest/cvg/node_modules/three/three.js"}],"/Users/pieper/slicer4/latest/cvg/lib/expressions.js":[function(require,module,exports){
 var _ = require("underscore");
 var THREE = require("three");
 // alternatively, we could add it to the THREE.Geometry.prototype but then
@@ -673,7 +673,7 @@ Object.keys(expressions).forEach(function(key) {
   };
 });
 
-},{"./addcontainspoint":"/Users/stefan/Documents/work/code/cvg/lib/addcontainspoint.js","three":"/Users/stefan/Documents/work/code/cvg/node_modules/three/three.js","underscore":"/Users/stefan/Documents/work/code/cvg/node_modules/underscore/underscore.js"}],"/Users/stefan/Documents/work/code/cvg/lib/mesh.js":[function(require,module,exports){
+},{"./addcontainspoint":"/Users/pieper/slicer4/latest/cvg/lib/addcontainspoint.js","three":"/Users/pieper/slicer4/latest/cvg/node_modules/three/three.js","underscore":"/Users/pieper/slicer4/latest/cvg/node_modules/underscore/underscore.js"}],"/Users/pieper/slicer4/latest/cvg/lib/mesh.js":[function(require,module,exports){
 /**
  * Copyright: Stefan Baumann, gigmade ltd
  * Re-using code from:
@@ -1158,7 +1158,7 @@ var triTable = new Int32Array([
 0, 3, 8, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]);
 
-},{"three":"/Users/stefan/Documents/work/code/cvg/node_modules/three/three.js"}],"/Users/stefan/Documents/work/code/cvg/lib/nrrd.js":[function(require,module,exports){
+},{"three":"/Users/pieper/slicer4/latest/cvg/node_modules/three/three.js"}],"/Users/pieper/slicer4/latest/cvg/lib/nrrd.js":[function(require,module,exports){
 (function (Buffer){
 "use strict";
 
@@ -1206,7 +1206,7 @@ exports.write = function (options) {
 
 }).call(this,require("buffer").Buffer)
 
-},{"buffer":"/Users/stefan/Documents/work/code/cvg/node_modules/browserify/node_modules/buffer/index.js","fs":"/Users/stefan/Documents/work/code/cvg/node_modules/browserify/lib/_empty.js","underscore":"/Users/stefan/Documents/work/code/cvg/node_modules/underscore/underscore.js"}],"/Users/stefan/Documents/work/code/cvg/lib/octants.js":[function(require,module,exports){
+},{"buffer":"/Users/pieper/slicer4/latest/cvg/node_modules/browserify/node_modules/buffer/index.js","fs":"/Users/pieper/slicer4/latest/cvg/node_modules/browserify/lib/_empty.js","underscore":"/Users/pieper/slicer4/latest/cvg/node_modules/underscore/underscore.js"}],"/Users/pieper/slicer4/latest/cvg/lib/octants.js":[function(require,module,exports){
 var _ = require('underscore');
 var three = require('three');
 
@@ -1277,7 +1277,7 @@ exports.Octants.prototype.rasterIncrements = function() {
   };
 };
 
-},{"three":"/Users/stefan/Documents/work/code/cvg/node_modules/three/three.js","underscore":"/Users/stefan/Documents/work/code/cvg/node_modules/underscore/underscore.js"}],"/Users/stefan/Documents/work/code/cvg/lib/rasterize.js":[function(require,module,exports){
+},{"three":"/Users/pieper/slicer4/latest/cvg/node_modules/three/three.js","underscore":"/Users/pieper/slicer4/latest/cvg/node_modules/underscore/underscore.js"}],"/Users/pieper/slicer4/latest/cvg/lib/rasterize.js":[function(require,module,exports){
 var THREE = require("THREE");
 
 /*
@@ -1534,7 +1534,7 @@ exports.Grid.prototype.rasterize = function (expression) {
   return raster;
 };
 
-},{"THREE":"/Users/stefan/Documents/work/code/cvg/node_modules/THREE/three.js"}],"/Users/stefan/Documents/work/code/cvg/lib/renderer.js":[function(require,module,exports){
+},{"THREE":"/Users/pieper/slicer4/latest/cvg/node_modules/THREE/three.js"}],"/Users/pieper/slicer4/latest/cvg/lib/renderer.js":[function(require,module,exports){
 var THREE = require("three");
 var OrbitControls = require('three-orbit-controls')(THREE);
 
@@ -1606,7 +1606,7 @@ exports.Renderer.prototype.animate = function() {
   this.renderer_.render(this.scene_, this.camera_);
   this.controls_.update();
 };
-},{"three":"/Users/stefan/Documents/work/code/cvg/node_modules/three/three.js","three-orbit-controls":"/Users/stefan/Documents/work/code/cvg/node_modules/three-orbit-controls/index.js"}],"/Users/stefan/Documents/work/code/cvg/node_modules/THREE/three.js":[function(require,module,exports){
+},{"three":"/Users/pieper/slicer4/latest/cvg/node_modules/three/three.js","three-orbit-controls":"/Users/pieper/slicer4/latest/cvg/node_modules/three-orbit-controls/index.js"}],"/Users/pieper/slicer4/latest/cvg/node_modules/THREE/three.js":[function(require,module,exports){
 var self = self || {};// File:src/Three.js
 
 /**
@@ -36754,9 +36754,9 @@ if (typeof exports !== 'undefined') {
   this['THREE'] = THREE;
 }
 
-},{}],"/Users/stefan/Documents/work/code/cvg/node_modules/browserify/lib/_empty.js":[function(require,module,exports){
+},{}],"/Users/pieper/slicer4/latest/cvg/node_modules/browserify/lib/_empty.js":[function(require,module,exports){
 
-},{}],"/Users/stefan/Documents/work/code/cvg/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
+},{}],"/Users/pieper/slicer4/latest/cvg/node_modules/browserify/node_modules/buffer/index.js":[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -38172,7 +38172,7 @@ function decodeUtf8Char (str) {
   }
 }
 
-},{"base64-js":"/Users/stefan/Documents/work/code/cvg/node_modules/browserify/node_modules/buffer/node_modules/base64-js/lib/b64.js","ieee754":"/Users/stefan/Documents/work/code/cvg/node_modules/browserify/node_modules/buffer/node_modules/ieee754/index.js","is-array":"/Users/stefan/Documents/work/code/cvg/node_modules/browserify/node_modules/buffer/node_modules/is-array/index.js"}],"/Users/stefan/Documents/work/code/cvg/node_modules/browserify/node_modules/buffer/node_modules/base64-js/lib/b64.js":[function(require,module,exports){
+},{"base64-js":"/Users/pieper/slicer4/latest/cvg/node_modules/browserify/node_modules/buffer/node_modules/base64-js/lib/b64.js","ieee754":"/Users/pieper/slicer4/latest/cvg/node_modules/browserify/node_modules/buffer/node_modules/ieee754/index.js","is-array":"/Users/pieper/slicer4/latest/cvg/node_modules/browserify/node_modules/buffer/node_modules/is-array/index.js"}],"/Users/pieper/slicer4/latest/cvg/node_modules/browserify/node_modules/buffer/node_modules/base64-js/lib/b64.js":[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
@@ -38298,7 +38298,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
-},{}],"/Users/stefan/Documents/work/code/cvg/node_modules/browserify/node_modules/buffer/node_modules/ieee754/index.js":[function(require,module,exports){
+},{}],"/Users/pieper/slicer4/latest/cvg/node_modules/browserify/node_modules/buffer/node_modules/ieee754/index.js":[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m,
       eLen = nBytes * 8 - mLen - 1,
@@ -38384,7 +38384,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],"/Users/stefan/Documents/work/code/cvg/node_modules/browserify/node_modules/buffer/node_modules/is-array/index.js":[function(require,module,exports){
+},{}],"/Users/pieper/slicer4/latest/cvg/node_modules/browserify/node_modules/buffer/node_modules/is-array/index.js":[function(require,module,exports){
 
 /**
  * isArray
@@ -38419,7 +38419,7 @@ module.exports = isArray || function (val) {
   return !! val && '[object Array]' == str.call(val);
 };
 
-},{}],"/Users/stefan/Documents/work/code/cvg/node_modules/three-orbit-controls/index.js":[function(require,module,exports){
+},{}],"/Users/pieper/slicer4/latest/cvg/node_modules/three-orbit-controls/index.js":[function(require,module,exports){
 module.exports = function(THREE) {
     var MOUSE = THREE.MOUSE
     if (!MOUSE)
@@ -39101,9 +39101,9 @@ module.exports = function(THREE) {
     OrbitControls.prototype.constructor = OrbitControls;
     return OrbitControls;
 }
-},{}],"/Users/stefan/Documents/work/code/cvg/node_modules/three/three.js":[function(require,module,exports){
-arguments[4]["/Users/stefan/Documents/work/code/cvg/node_modules/THREE/three.js"][0].apply(exports,arguments)
-},{}],"/Users/stefan/Documents/work/code/cvg/node_modules/underscore/underscore.js":[function(require,module,exports){
+},{}],"/Users/pieper/slicer4/latest/cvg/node_modules/three/three.js":[function(require,module,exports){
+arguments[4]["/Users/pieper/slicer4/latest/cvg/node_modules/THREE/three.js"][0].apply(exports,arguments)
+},{}],"/Users/pieper/slicer4/latest/cvg/node_modules/underscore/underscore.js":[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
